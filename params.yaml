@@ -1,0 +1,21 @@
+base:
+  project: winequality-project
+  random_state: 42
+  target_col: stroke
+
+data_source:
+  s3_source: data\raw\healthcare-dataset-stroke-data.csv
+split_data:
+  train_path: data/processed/train_winequality.csv
+  test_path: data/processed/test_winequality.csv
+  test_size: 0.2
+
+estimators:
+
+model_dir: models
+
+reports:
+  params: report/params.json
+  scores: report/scores.json
+
+webapp_model_dir: prediction_service/model/model.joblib
