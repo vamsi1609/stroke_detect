@@ -14,7 +14,7 @@ split_data:
 
 estimators:
 
-  n_estimators: 50
+  n_estimators: 70
   
 
 model_dir: models

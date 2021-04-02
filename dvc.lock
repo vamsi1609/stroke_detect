@@ -40,11 +40,41 @@ stages:
       size: 1447
     params:
       params.yaml:
-        estimators.n_estimators: 50
+        estimators.n_estimators: 25
     outs:
     - path: models\model.joblib
-      md5: c31ee1620a6a661b3b89c88834b6e837
-      size: 487716
+      md5: 0c5ed9cbc21d4eec0681311bc3cb524d
+      size: 236304
     - path: reports\params.json
-      md5: ddda00a5a4899037a2b47fdba987d112
+      md5: d647a4edb23d44df34729b82eafeb128
       size: 28
+  train_n_evaluate:
+    cmd:
+    - python src\models\train_model.py --config=params.yaml
+    - python src\models\predict_model.py --config=params.yaml
+    deps:
+    - path: data\processed\test_stroke_data.csv
+      md5: c05ca6ad2b1d0f904139ddf633a331ee
+      size: 101426
+    - path: data\processed\train_stroke_data.csv
+      md5: 3306c673ba2fed819674cb7ca0a83574
+      size: 236229
+    - path: src\models\predict_model.py
+      md5: 4a77cb882eefc1fc23e0197f606b2551
+      size: 1686
+    - path: src\models\train_model.py
+      md5: 0f522035e3c52e8bdf9de6041db8f173
+      size: 1447
+    params:
+      params.yaml:
+        estimators.n_estimators: 70
+    outs:
+    - path: models\model.joblib
+      md5: d43b74846de4a13e369291d14db905db
+      size: 692130
+    - path: reports\params.json
+      md5: 4cb27dde3012c75acca4c1fdb1011d07
+      size: 28
+    - path: reports\scores.json
+      md5: 9751f6fb225ef264b7e3eea77350391c
+      size: 129

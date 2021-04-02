@@ -8,25 +8,23 @@ stages:
     - data\processed\train_stroke_data.csv
     - data\processed\test_stroke_data.csv
 
-  train_model:
-    cmd: python src\models\train_model.py --config=params.yaml
+  train_n_evaluate:
+    cmd: 
+    - python src\models\train_model.py --config=params.yaml
+    - python src\models\predict_model.py --config=params.yaml
     deps:
     - data\processed\train_stroke_data.csv
+    - data\processed\test_stroke_data.csv
     - src\models\train_model.py
+    - src\models\predict_model.py
     params:
     - estimators.n_estimators
     outs:
     - models\model.joblib
+
     metrics:
     - reports\params.json:
         cache: False
-
-  predict_model:
-    cmd: python src\models\predict_model.py --config=params.yaml
-    deps:
-    - data\processed\test_stroke_data.csv
-    - src\models\predict_model.py
-    metrics:
     - reports\scores.json:
         cache: False
     
