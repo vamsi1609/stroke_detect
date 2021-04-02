@@ -1,0 +1,50 @@
+schema: '2.0'
+stages:
+  predict_model:
+    cmd: python src\models\predict_model.py --config=params.yaml
+    deps:
+    - path: data\processed\test_stroke_data.csv
+      md5: c05ca6ad2b1d0f904139ddf633a331ee
+      size: 101426
+    - path: src\models\predict_model.py
+      md5: 4a77cb882eefc1fc23e0197f606b2551
+      size: 1686
+    outs:
+    - path: reports\scores.json
+      md5: 9751f6fb225ef264b7e3eea77350391c
+      size: 129
+  split_data:
+    cmd: python src\data\make_dataset.py --config=params.yaml
+    deps:
+    - path: data\raw\healthcare-dataset-stroke-data.csv
+      md5: 3f25a4c2f2963d969e1a156c08968577
+      size: 316971
+    - path: src\data\make_dataset.py
+      md5: 933c5ab7ef86eb3166349d17873f8a7d
+      size: 2285
+    outs:
+    - path: data\processed\test_stroke_data.csv
+      md5: c05ca6ad2b1d0f904139ddf633a331ee
+      size: 101426
+    - path: data\processed\train_stroke_data.csv
+      md5: 3306c673ba2fed819674cb7ca0a83574
+      size: 236229
+  train_model:
+    cmd: python src\models\train_model.py --config=params.yaml
+    deps:
+    - path: data\processed\train_stroke_data.csv
+      md5: 3306c673ba2fed819674cb7ca0a83574
+      size: 236229
+    - path: src\models\train_model.py
+      md5: 0f522035e3c52e8bdf9de6041db8f173
+      size: 1447
+    params:
+      params.yaml:
+        estimators.n_estimators: 50
+    outs:
+    - path: models\model.joblib
+      md5: c31ee1620a6a661b3b89c88834b6e837
+      size: 487716
+    - path: reports\params.json
+      md5: ddda00a5a4899037a2b47fdba987d112
+      size: 28

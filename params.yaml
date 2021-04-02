@@ -14,10 +14,13 @@ split_data:
 
 estimators:
 
+  n_estimators: 50
+  
+
 model_dir: models
 
 reports:
-  params: report/params.json
-  scores: report/scores.json
+  params: reports/params.json
+  scores: reports/scores.json
 
 webapp_model_dir: prediction_service/model/model.joblib
