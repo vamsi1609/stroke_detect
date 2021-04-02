@@ -1,7 +1,6 @@
-stroke_detection
+Stroke Detection
 ==============================
 
-Simpple app
 
 Project Organization
 ------------
@@ -56,13 +55,8 @@ Project Organization
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
 
-
-## Install requirements
+ Install the required packages
 ```bash
 pip install -r requirements.txt
 ```
 
-Preparing the structure of the project
-```bash
-cookiecutter https://github.com/drivendata/cookiecutter-data-science
-```
