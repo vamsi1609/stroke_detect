@@ -17,18 +17,18 @@ stages:
     cmd: python src/data/make_dataset.py --config=params.yaml
     deps:
     - path: data/interim/cat-stroke-data.csv
-      md5: f0405a3f7eb7759aa17a23856cb01207
-      size: 337412
+      md5: afe266146e8cf1af719cd9e42c0bd569
+      size: 179184
     - path: src/data/make_dataset.py
       md5: c94b9f0260acd85096a634c11a5e515d
       size: 2219
     outs:
     - path: data/processed/test_stroke_data.csv
-      md5: c6d17b835beb4242fc0d450313b26df9
-      size: 92562
+      md5: 9eec5583753a51c1834d00d2c517afb5
+      size: 53870
     - path: data/processed/train_stroke_data.csv
-      md5: c43464633c23e3683431102a0430045f
-      size: 215519
+      md5: 3c647e9fc6e71444fbcfe0d9bb670ff4
+      size: 125455
   train_model:
     cmd: python src\models\train_model.py --config=params.yaml
     deps:
