@@ -16,19 +16,19 @@ stages:
   split_data:
     cmd: python src\data\make_dataset.py --config=params.yaml
     deps:
-    - path: data\raw\healthcare-dataset-stroke-data.csv
-      md5: 3f25a4c2f2963d969e1a156c08968577
-      size: 316971
+    - path: data\interim\cat-stroke-data.csv
+      md5: 1991454755c32781c2d4ca2bcdf86f42
+      size: 337413
     - path: src\data\make_dataset.py
-      md5: 933c5ab7ef86eb3166349d17873f8a7d
-      size: 2285
+      md5: 14180fcf3ee694a04a9b21547bded34a
+      size: 2240
     outs:
     - path: data\processed\test_stroke_data.csv
-      md5: c05ca6ad2b1d0f904139ddf633a331ee
-      size: 101426
+      md5: 9c4a24ecd9d8ae8b2ee9a852a6b11c67
+      size: 84636
     - path: data\processed\train_stroke_data.csv
-      md5: 3306c673ba2fed819674cb7ca0a83574
-      size: 236229
+      md5: f117ccc2312d3ae7633bcfcbf3815abd
+      size: 253019
   train_model:
     cmd: python src\models\train_model.py --config=params.yaml
     deps:
@@ -54,11 +54,11 @@ stages:
     - python src\models\predict_model.py --config=params.yaml
     deps:
     - path: data\processed\test_stroke_data.csv
-      md5: c05ca6ad2b1d0f904139ddf633a331ee
-      size: 101426
+      md5: 9c4a24ecd9d8ae8b2ee9a852a6b11c67
+      size: 84636
     - path: data\processed\train_stroke_data.csv
-      md5: 3306c673ba2fed819674cb7ca0a83574
-      size: 236229
+      md5: f117ccc2312d3ae7633bcfcbf3815abd
+      size: 253019
     - path: src\models\predict_model.py
       md5: 4a77cb882eefc1fc23e0197f606b2551
       size: 1686
@@ -67,14 +67,14 @@ stages:
       size: 1447
     params:
       params.yaml:
-        estimators.n_estimators: 70
+        estimators.n_estimators: 100
     outs:
     - path: models\model.joblib
-      md5: d43b74846de4a13e369291d14db905db
-      size: 692130
+      md5: a5b7510ca13d684b5217762385b0af25
+      size: 924729
     - path: reports\params.json
-      md5: 4cb27dde3012c75acca4c1fdb1011d07
-      size: 28
+      md5: e2b2851498b28933da31564479185b5e
+      size: 29
     - path: reports\scores.json
-      md5: 9751f6fb225ef264b7e3eea77350391c
+      md5: 661765831d3258e1f315797278bc3403
       size: 129
