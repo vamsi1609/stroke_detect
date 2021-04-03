@@ -15,3 +15,5 @@ numpy
 jupyterlab
 lux-api 
 dvc
+streamlit
+watchdog

@@ -1,5 +1,6 @@
 import streamlit as st
 import pickle
+import joblib
 import numpy as np
 st.title(
     'Stroke Detection via Machine Learning'
@@ -48,9 +49,9 @@ else:
     smoking_status=3
 
 x_pred = np.array([[gender,age,hypertension,heart_disease,ever_married,work_type,Residence_type,avg_glucose_level,bmi,smoking_status]])
-Filename = '/Users/rohith/git/stroke_detect/models/RF_KNN_Model.pkl'
+Filename = 'models/model.joblib'
 with open(Filename, 'rb') as file:  
-    KNN_Model = pickle.load(file)
+    KNN_Model = joblib.load(file)
 
 y = KNN_Model.predict(x_pred)
 

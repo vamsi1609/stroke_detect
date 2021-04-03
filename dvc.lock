@@ -78,3 +78,5 @@ stages:
     - path: reports/scores.json
       md5: 2291e20c2997f29075e8dc37653a7dd0
       size: 94
+  start_app:
+    cmd: python app.py
