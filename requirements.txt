@@ -3,6 +3,8 @@
 
 # external requirements
 click
+dvc
+dvc[gdrive]
 Sphinx
 coverage
 awscli
