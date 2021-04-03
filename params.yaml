@@ -4,17 +4,17 @@ base:
   target_col: stroke
 
 data_source:
-  source: data\raw\healthcare-dataset-stroke-data.csv
+  source: data/raw/healthcare-dataset-stroke-data.csv
 interim_data:
-  source: data\interim\cat-stroke-data.csv
+  source: data/interim/cat-stroke-data.csv
 split_data:
-  train_path: data\processed\train_stroke_data.csv
-  test_path: data\processed\test_stroke_data.csv
+  train_path: data/processed/train_stroke_data.csv
+  test_path: data/processed/test_stroke_data.csv
   test_size: 0.3
 
 estimators:
 
-  n_estimators: 70
+  n_estimators: 100
   
 
 model_dir: models

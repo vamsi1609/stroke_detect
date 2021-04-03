@@ -14,21 +14,21 @@ stages:
       md5: 9751f6fb225ef264b7e3eea77350391c
       size: 129
   split_data:
-    cmd: python src\data\make_dataset.py --config=params.yaml
+    cmd: python src/data/make_dataset.py --config=params.yaml
     deps:
-    - path: data\raw\healthcare-dataset-stroke-data.csv
-      md5: 3f25a4c2f2963d969e1a156c08968577
-      size: 316971
-    - path: src\data\make_dataset.py
-      md5: 933c5ab7ef86eb3166349d17873f8a7d
-      size: 2285
+    - path: data/interim/cat-stroke-data.csv
+      md5: f0405a3f7eb7759aa17a23856cb01207
+      size: 337412
+    - path: src/data/make_dataset.py
+      md5: c94b9f0260acd85096a634c11a5e515d
+      size: 2219
     outs:
-    - path: data\processed\test_stroke_data.csv
-      md5: c05ca6ad2b1d0f904139ddf633a331ee
-      size: 101426
-    - path: data\processed\train_stroke_data.csv
-      md5: 3306c673ba2fed819674cb7ca0a83574
-      size: 236229
+    - path: data/processed/test_stroke_data.csv
+      md5: c6d17b835beb4242fc0d450313b26df9
+      size: 92562
+    - path: data/processed/train_stroke_data.csv
+      md5: c43464633c23e3683431102a0430045f
+      size: 215519
   train_model:
     cmd: python src\models\train_model.py --config=params.yaml
     deps:
@@ -50,31 +50,31 @@ stages:
       size: 28
   train_n_evaluate:
     cmd:
-    - python src\models\train_model.py --config=params.yaml
-    - python src\models\predict_model.py --config=params.yaml
+    - python src/models/train_model.py --config=params.yaml
+    - python src/models/predict_model.py --config=params.yaml
     deps:
-    - path: data\processed\test_stroke_data.csv
-      md5: c05ca6ad2b1d0f904139ddf633a331ee
-      size: 101426
-    - path: data\processed\train_stroke_data.csv
-      md5: 3306c673ba2fed819674cb7ca0a83574
-      size: 236229
-    - path: src\models\predict_model.py
+    - path: data/processed/test_stroke_data.csv
+      md5: c6d17b835beb4242fc0d450313b26df9
+      size: 92562
+    - path: data/processed/train_stroke_data.csv
+      md5: c43464633c23e3683431102a0430045f
+      size: 215519
+    - path: src/models/predict_model.py
       md5: 4a77cb882eefc1fc23e0197f606b2551
-      size: 1686
-    - path: src\models\train_model.py
+      size: 1626
+    - path: src/models/train_model.py
       md5: 0f522035e3c52e8bdf9de6041db8f173
-      size: 1447
+      size: 1390
     params:
       params.yaml:
-        estimators.n_estimators: 70
+        estimators.n_estimators: 100
     outs:
-    - path: models\model.joblib
-      md5: d43b74846de4a13e369291d14db905db
-      size: 692130
-    - path: reports\params.json
-      md5: 4cb27dde3012c75acca4c1fdb1011d07
-      size: 28
-    - path: reports\scores.json
-      md5: 9751f6fb225ef264b7e3eea77350391c
-      size: 129
+    - path: models/model.joblib
+      md5: 7a18243c7969a5288b3c12e3594b4f8a
+      size: 3604015
+    - path: reports/params.json
+      md5: e2b2851498b28933da31564479185b5e
+      size: 27
+    - path: reports/scores.json
+      md5: 2291e20c2997f29075e8dc37653a7dd0
+      size: 94

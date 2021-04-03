@@ -33,8 +33,8 @@ def split_n_save(config_path):
     test_split = config["split_data"]["test_size"]
     random_state = config["base"]["random_state"]
     #Processing and saving
-    print(train_path)
-    print(test_path)
+    #print(train_path)
+    #print(test_path)
     df = pd.read_csv(inter_path, sep=",")
     train, test = train_test_split(df,
                                    test_size=test_split,

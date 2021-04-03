@@ -1,30 +1,30 @@
 stages:
   split_data:
-    cmd: python src\data\make_dataset.py --config=params.yaml
+    cmd: python src/data/make_dataset.py --config=params.yaml
     deps:
-    - src\data\make_dataset.py
-    - data\raw\healthcare-dataset-stroke-data.csv
+    - src/data/make_dataset.py
+    - data/interim/cat-stroke-data.csv
     outs:
-    - data\processed\train_stroke_data.csv
-    - data\processed\test_stroke_data.csv
+    - data/processed/train_stroke_data.csv
+    - data/processed/test_stroke_data.csv
 
   train_n_evaluate:
     cmd: 
-    - python src\models\train_model.py --config=params.yaml
-    - python src\models\predict_model.py --config=params.yaml
+    - python src/models/train_model.py --config=params.yaml
+    - python src/models/predict_model.py --config=params.yaml
     deps:
-    - data\processed\train_stroke_data.csv
-    - data\processed\test_stroke_data.csv
-    - src\models\train_model.py
-    - src\models\predict_model.py
+    - data/processed/train_stroke_data.csv
+    - data/processed/test_stroke_data.csv
+    - src/models/train_model.py
+    - src/models/predict_model.py
     params:
     - estimators.n_estimators
     outs:
-    - models\model.joblib
+    - models/model.joblib
 
     metrics:
-    - reports\params.json:
+    - reports/params.json:
         cache: False
-    - reports\scores.json:
+    - reports/scores.json:
         cache: False
     
