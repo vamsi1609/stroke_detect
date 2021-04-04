@@ -3,6 +3,12 @@ import pickle
 import numpy as np
 from PIL import Image
 import pandas as pd
+import matplotlib.pyplot as plt
+from matplotlib.backends.backend_agg import RendererAgg
+from matplotlib.figure import Figure
+
+
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 st.title(
     'Stroke Detection via Machine Learning'
@@ -10,7 +16,7 @@ st.title(
 
 st.write(" __________________________ ")
 
-data = pd.read_csv('data\raw\healthcare-dataset-stroke-data.csv')
+data = pd.read_csv('/Users/rohith/git/stroke_detect/data/raw/healthcare-dataset-stroke-data.csv')
 
 
 name = st.sidebar.text_input('Input your name')
@@ -110,33 +116,62 @@ def get_100_percent_stacked_bar_chart(column, width=0.5):
     return df_pct.plot.bar(stacked=True, figsize=(6, 6), width=width)
 
 
-def get_stacked_bar_chart(column):
-    # Get the count of records by column and stroke
-    df_pct = data.groupby([column, 'stroke'])['age'].count()
-    # Create proper DataFrame's format
-    df_pct = df_pct.unstack()
-    return df_pct.plot.bar(stacked=True, figsize=(6, 6), width=1)
 
+row3_space1, row3_1, row3_space2, row3_2, row3_space3 = st.beta_columns(
+    (.1, 1, .1, 1, .1))
 
-get_stacked_bar_chart('age_binned')
-get_100_percent_stacked_bar_chart('age_binned', width=0.9)
+_lock = RendererAgg.lock
 
-get_stacked_bar_chart('bmi_binned')
-get_100_percent_stacked_bar_chart('bmi_binned', width=0.9)
+with row3_1, _lock:
+        get_100_percent_stacked_bar_chart('bmi_binned', width=0.9)
+        st.pyplot()
 
-get_stacked_bar_chart('average_glucose_level_binned')
-get_100_percent_stacked_bar_chart('average_glucose_level_binned', width=0.9)
+with row3_2, _lock:
+        get_100_percent_stacked_bar_chart('age_binned', width=0.9)
+        st.pyplot()
 
-get_100_percent_stacked_bar_chart('hypertension')
-get_100_percent_stacked_bar_chart('heart_disease')
+st.write('')
+row4_space1, row4_1, row4_space2, row4_2, row4_space3 = st.beta_columns(
+    (.1, 1, .1, 1, .1))
 
-get_100_percent_stacked_bar_chart('gender')
-get_100_percent_stacked_bar_chart('Residence_type')
+with row4_1, _lock:
+    get_100_percent_stacked_bar_chart('hypertension')
+    st.pyplot()
 
-get_100_percent_stacked_bar_chart('work_type')
-# data.groupby(['work_type'])[['age']].agg(['count', 'mean'])
+with row4_2, _lock:
+    get_100_percent_stacked_bar_chart('heart_disease')
+    st.pyplot()
 
-get_100_percent_stacked_bar_chart('ever_married')
-# data.groupby(['ever_married'])[['age']].agg(['count', 'mean'])
+st.write('')
+row5_space1, row5_1, row5_space2, row5_2, row5_space3 = st.beta_columns(
+    (.1, 1, .1, 1, .1))
 
-st.pyplot()
+with row5_1, _lock:
+    get_100_percent_stacked_bar_chart('gender')
+    st.pyplot()
+with row5_2, _lock:
+    get_100_percent_stacked_bar_chart('Residence_type')
+    st.pyplot()
+st.write('')
+
+row6_space1, row6_1, row6_space2, row6_2, row6_space3 = st.beta_columns(
+    (.1, 1, .1, 1, .1))
+
+with row6_1, _lock:
+    get_100_percent_stacked_bar_chart('work_type')
+    st.pyplot()
+
+with row6_2, _lock:
+    get_100_percent_stacked_bar_chart('smoking_status')
+    st.pyplot()
+
+st.write('')
+
+row7_space1, row7_1, row7_space2, row7_2, row7_space3 = st.beta_columns(
+    (.1, 1, .1, 1, .1))
+
+with row7_1, _lock:
+    get_100_percent_stacked_bar_chart('ever_married')
+    st.pyplot()
+with row7_2, _lock:
+    st.write("Hi")
