@@ -16,7 +16,7 @@ st.title(
 
 st.write(" __________________________ ")
 
-data = pd.read_csv('/Users/rohith/git/stroke_detect/data/raw/healthcare-dataset-stroke-data.csv')
+data = pd.read_csv(r'C:\Users\aniru\Desktop\Amrita\Sem 4\Personal Projects\HealthCareStroke\stroke_detect\data\raw\healthcare-dataset-stroke-data.csv')
 
 
 name = st.sidebar.text_input('Input your name')
