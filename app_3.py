@@ -8,7 +8,7 @@ st.title(
 )
 
 st.write(" __________________________ ")
-
+#
 name = st.sidebar.text_input('Input your name')
 gender = st.sidebar.radio("Gender",('Female', 'Male'))
 gender = 0 if gender =='Female' else 1
