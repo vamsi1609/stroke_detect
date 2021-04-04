@@ -2,13 +2,17 @@ import streamlit as st
 import pickle
 import numpy as np
 from PIL import Image
+import pandas as pd
 
 st.title(
     'Stroke Detection via Machine Learning'
 )
 
 st.write(" __________________________ ")
-#
+
+data = pd.read_csv('data\raw\healthcare-dataset-stroke-data.csv')
+
+
 name = st.sidebar.text_input('Input your name')
 gender = st.sidebar.radio("Gender",('Female', 'Male'))
 gender = 0 if gender =='Female' else 1
@@ -74,3 +78,65 @@ if st.sidebar.button('Predict'):
         """)
         image = Image.open('worry.jpg')
         st.image(image)
+
+
+
+data.drop(columns=['id'], inplace=True)
+data['bmi'].fillna(np.round(data['bmi'].mean(), 1), inplace=True)
+data = data[data['gender'] != 'Other']
+
+data['age_norm'] = (data['age']-data['age'].min()) / (data['age'].max()-data['age'].min())
+
+data['average_glucose_level_norm'] = (data['avg_glucose_level']-data['avg_glucose_level'].min()) / (data['avg_glucose_level'].max()-data['avg_glucose_level'].min())
+
+data['bmi_norm'] = (data['bmi']-data['bmi'].min()) / (data['bmi'].max()-data['bmi'].min())
+
+data['age_binned'] = pd.cut(data['age'], np.arange(0, 91, 5))
+
+data['average_glucose_level_binned'] = pd.cut(data['avg_glucose_level'], np.arange(0, 301, 10))
+
+data['bmi_binned'] = pd.cut(data['bmi'], np.arange(0, 101, 5))
+
+
+def get_100_percent_stacked_bar_chart(column, width=0.5):
+    # Get the count of records by column and stroke
+    df_breakdown = data.groupby([column, 'stroke'])['age'].count()
+    # Get the count of records by gender
+    df_total = data.groupby([column])['age'].count()
+    # Get the percentage for 100% stacked bar chart
+    df_pct = df_breakdown / df_total * 100
+    # Create proper DataFrame's format
+    df_pct = df_pct.unstack()
+    return df_pct.plot.bar(stacked=True, figsize=(6, 6), width=width)
+
+
+def get_stacked_bar_chart(column):
+    # Get the count of records by column and stroke
+    df_pct = data.groupby([column, 'stroke'])['age'].count()
+    # Create proper DataFrame's format
+    df_pct = df_pct.unstack()
+    return df_pct.plot.bar(stacked=True, figsize=(6, 6), width=1)
+
+
+get_stacked_bar_chart('age_binned')
+get_100_percent_stacked_bar_chart('age_binned', width=0.9)
+
+get_stacked_bar_chart('bmi_binned')
+get_100_percent_stacked_bar_chart('bmi_binned', width=0.9)
+
+get_stacked_bar_chart('average_glucose_level_binned')
+get_100_percent_stacked_bar_chart('average_glucose_level_binned', width=0.9)
+
+get_100_percent_stacked_bar_chart('hypertension')
+get_100_percent_stacked_bar_chart('heart_disease')
+
+get_100_percent_stacked_bar_chart('gender')
+get_100_percent_stacked_bar_chart('Residence_type')
+
+get_100_percent_stacked_bar_chart('work_type')
+# data.groupby(['work_type'])[['age']].agg(['count', 'mean'])
+
+get_100_percent_stacked_bar_chart('ever_married')
+# data.groupby(['ever_married'])[['age']].agg(['count', 'mean'])
+
+st.pyplot()

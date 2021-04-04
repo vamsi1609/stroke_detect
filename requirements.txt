@@ -17,3 +17,4 @@ lux-api
 dvc
 streamlit
 watchdog
+pandas
